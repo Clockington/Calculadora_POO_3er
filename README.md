@@ -1,2 +1,7 @@
 # Calculadora_POO_3er
-Calculadora_POO_Proyecto
+
+Proyecto en desarrollo. Se agregaran mas funciones conforme se desarrollen.
+
+~quetzalii
+
+Calculadora_POO_Proyecto.

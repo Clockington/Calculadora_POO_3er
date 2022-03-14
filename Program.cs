@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculadora_POO_Proyecto
 {
@@ -62,46 +58,34 @@ namespace Calculadora_POO_Proyecto
 
         public class CalcuTrigono
         {
-            private Double resultC, operC;
-            private int funciont;
+            private readonly Double resultC, operC;
+            private readonly int funciont;
             //private int degrad;
 
-            public void InitiateTrigono(Double resultC, Double operC,/* int degrad,*/ int funciont)
+            public CalcuTrigono(Double operC,int funciont)
             {
-
-                this.resultC = resultC;
                 this.operC = operC;
-                //this.degrad = degrad;
                 this.funciont = funciont;
             }
             public String ResultTrigono()
             {
-                if (funciont == 1) //Seno
+                switch (funciont)
                 {
-                    resultC = Math.Sin(operC);
+                    case 1: //Seno
+                    return ">" + Math.Sin(operC);
+                    case 2: //Coseno
+                    return ">" + Math.Cos(operC);
+                    case 3: //Tangente
+                    return ">" + Math.Tan(operC);
+                    case 4: //Cosecante
+                    return ">"+(1/Math.Sin(operC));
+                    case 5: //Secante
+                    return ">"+(1/Math.Cos(operC));
+                    case 6: //Cotangente
+                    return ">"+(Math.Cos(operC)/Math.Sin(operC));
+                    default:
+                    throw new InvalidOperationException("Operacin Invalida.");
                 }
-                else if (funciont==2) //Coseno
-                {
-                    resultC = Math.Cos(operC);
-                }
-                else if (funciont==3) //Tangente
-                {
-                    resultC = Math.Tan(operC);
-                }
-                else if (funciont == 4) //Cosecante
-                {
-                    resultC = 1/Math.Sin(operC);
-                }
-                else if (funciont == 5) //Secante
-                {
-                    resultC = 1/Math.Cos(operC);
-                }
-                else if (funciont == 6) //Cotangente
-                {
-                    resultC = Math.Cos(operC)/Math.Sin(operC);
-                }
-                return "\nResultado en radianes: "+(Math.Round(resultC,3))+"\nResultado en grados: "+(Math.Round(((resultC*180)/Math.PI),3));
-                                
             }
         }
         /*Se hará una clase para las Conversiones y se seleccionarán con un Switch en el Main()*/
@@ -140,25 +124,28 @@ namespace Calculadora_POO_Proyecto
                         // Imprime el return de Resultados()
                         Console.WriteLine(calcubasica.Resultados());
                         break;
-                    case 2:
-                        CalcuTrigono calcutrigono;
-                        calcutrigono = new CalcuTrigono();
+                    case 2: //Trigonometrica
+                        {
+                            double operC;
+                            int functiont;
 
-                        double resultC = 0, operC;
-                        int /*degrad = 0,*/ funciont;
+                            Console.WriteLine("Modo Trigonometrico habilitado...");
+                            Console.WriteLine("\nIndique con un numero la funcion a utilizar..."+
+                            "\n\t1. Seno"+
+                            "\n\t2. Coseno"+
+                            "\n\t3. Tangente"+
+                            "\n\t4. Cosecante"+
+                            "\n\t5. Secante"+
+                            "\n\t6. Cotangente");
+                            functiont=int.Parse(COnsole.Readline());
+                            Console.WriteLine("\nIngrese el valor a evaluar en radianes...");
+                            operC=double.Parse(Console.ReadLine());
 
-
-                        Console.WriteLine("Modo Trigonométrico habilitado...");
-                        Console.WriteLine("\nIndique con un numero la funcion a usar:\n1. Seno\t\t2. Coseno\t\t3. Tangente\n4. Cosecante\t5. Secante\t6. Cotangente");
-                        funciont = int.Parse(Console.ReadLine());
-                        Console.WriteLine("\nIngrese el valor a evaluar:");
-                        operC = double.Parse(Console.ReadLine());
-
-                        calcutrigono.InitiateTrigono(resultC, operC, /*degrad,*/ funciont);
-
-                        Console.WriteLine(calcutrigono.ResultTrigono());
-
-                        break;
+                            CalcuTrigono calcutrigono = new CalcuTrigono(operC,functiont);
+                            Console.WriteLine(Console.ResultTrigono());
+                            
+                            break;
+                        }
                     default:
                         break;
                 }
